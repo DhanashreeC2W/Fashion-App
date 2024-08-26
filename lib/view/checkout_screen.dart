@@ -12,10 +12,12 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreen extends State<CheckoutScreen> {
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+
+      /// APP BAR WIDGET 
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
         title: Text(
@@ -37,20 +39,30 @@ class _CheckoutScreen extends State<CheckoutScreen> {
           ),
         ),
       ),
+
+      /// MAIN BODY WITH PADDING FOR SPACING ON LEFT AND RIGHT
       body: Padding(
-        padding: const EdgeInsets.only(left: 30, right: 30),
+        padding: const EdgeInsets.only(left: 30, right: 30,bottom: 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            /// DELIVERY ADDRESS LABEL TEXT
+            SizedBox(
+              height: 130,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
               "Delivery Address",
               style: GoogleFonts.imprima(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: const Color.fromRGBO(121, 119, 128, 1)),
             ),
-           
+
+            /// ROW CONTAINING ADDRESS IMAGE, TEXT, AND CHANGE BUTTON
             Row(
               children: [
                 Image.asset("assets/images/map.png"),
@@ -74,14 +86,16 @@ class _CheckoutScreen extends State<CheckoutScreen> {
                 )
               ],
             ),
-           
-            Row(
+            /// DELIVERY TIME ESTIMATION TEXT WITH ICON
+             Row(
               children: [
                 const Icon(
-                  Icons.timer,
+                  Icons.access_time_outlined,
                   color: Color.fromRGBO(123, 123, 141, 1),
                   weight: 1.5,
                 ),
+            const SizedBox(width: 10,),
+
                 Text(
                   "Delivered in next 7 days",
                   style: GoogleFonts.imprima(
@@ -91,30 +105,47 @@ class _CheckoutScreen extends State<CheckoutScreen> {
                 )
               ],
             ),
-          
-            Text(
+                ],
+                
+              ),
+            ),
+
+            
+           
+            /// PAYMENT METHOD LABEL TEXT
+           SizedBox(
+            height: 70,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                 Text(
               "Payment Method",
               style: GoogleFonts.imprima(
                   fontSize: 16,
                   fontWeight: FontWeight.w400,
                   color: const Color.fromRGBO(121, 119, 128, 1)),
             ),
+
+            /// HORIZONTAL LIST OF PAYMENT METHOD ICONS
             SizedBox(
               height: 18,
-              // width: 44,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: imagesList.length,
                   itemBuilder: (context, index) {
                     return Container(
                       height: 100,
-                      //width: 44,
                       margin: const EdgeInsets.only(left: 17),
                       child: Image.asset(imagesList[index]),
                     );
                   }),
             ),
-           
+              ],
+            ),
+           ),
+
+            /// ADD VOUCHER BUTTON
             Container(
               height: 54,
               decoration:
@@ -122,12 +153,10 @@ class _CheckoutScreen extends State<CheckoutScreen> {
               child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                     shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(10) ),
-                    fixedSize: (
-                        Size(MediaQuery.sizeOf(context).width, 54)),
-                    backgroundColor: (
-                        Color.fromRGBO(252, 252, 252, 1)),
-                        
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    fixedSize: (Size(MediaQuery.sizeOf(context).width, 54)),
+                    backgroundColor: (const Color.fromRGBO(252, 252, 252, 1)),
                   ),
                   child: Text(
                     "Add Voucher",
@@ -138,6 +167,8 @@ class _CheckoutScreen extends State<CheckoutScreen> {
                         color: const Color.fromRGBO(121, 119, 128, 1)),
                   )),
             ),
+
+            /// NOTE TEXT SECTION WITH IMPORTANT PAYMENT INFORMATION
             Text.rich(TextSpan(
                 text: "Note : ",
                 style: GoogleFonts.imprima(
@@ -168,26 +199,27 @@ class _CheckoutScreen extends State<CheckoutScreen> {
                         color: const Color.fromRGBO(121, 119, 128, 1)),
                   ),
                 ])),
-              const SizedBox(
-                height: 100,
-                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                      PaymentDetails(name: "Total Items(3)", amount: 116.01),
-                   PaymentDetails(name: "Standard Delivery", amount: 12.01),
-                   PaymentDetails(name: "Total Payment", amount: 126.01),
-                  ],
-                 ),
-               ),
+
+            /// PAYMENT DETAILS SECTION
+            const SizedBox(
+              height: 100,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PaymentDetails(name: "Total Items(3)", amount: 116.01),
+                  PaymentDetails(name: "Standard Delivery", amount: 12.01),
+                  PaymentDetails(name: "Total Payment", amount: 126.01),
+                ],
+              ),
+            ),
+
+            /// PAY NOW BUTTON
             Center(
               child: ElevatedButton(
                   onPressed: () {},
-                  
-                  style:  ElevatedButton.styleFrom(
-                   
+                  style: ElevatedButton.styleFrom(
                       fixedSize: (const Size(190, 62)),
-                      backgroundColor:
-                          (const Color.fromRGBO(255, 122, 0, 1))),
+                      backgroundColor: const Color.fromRGBO(255, 122, 0, 1)),
                   child: Text(
                     "Pay Now",
                     style: GoogleFonts.imprima(
