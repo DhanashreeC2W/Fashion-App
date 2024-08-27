@@ -1,6 +1,5 @@
 import 'package:fashion_app/controller/details_screen_controller.dart';
 import 'package:fashion_app/controller/items_data.dart';
-import 'package:fashion_app/controller/size_list.dart';
 import 'package:fashion_app/view/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -89,20 +88,23 @@ class DetailsScreen extends StatelessWidget {
               /// PAGEVIEW TO DISPLAY IMAGES OF THE SELECTED ITEM.
               SizedBox(
                 height: 450,
-                child: PageView.builder(
-                  controller: PageController(),
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return Stack(
+                child: 
+                     Stack(
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(40),
-                          child: Image.asset(
-                            "${selectedItem?.img}",
-                            width: MediaQuery.sizeOf(context).width,
-                            height: 450,
-                            fit: BoxFit.cover,
-                          ),
+                        PageView.builder(
+                             controller: PageController(),
+                  itemCount: 3,
+                          itemBuilder: (context, index) {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(40),
+                              child: Image.asset(
+                                "${selectedItem?.img}",
+                                width: MediaQuery.sizeOf(context).width,
+                                height: 450,
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          }
                         ),
                         
                         /// INDICATOR FOR THE PAGEVIEW.
@@ -120,15 +122,14 @@ class DetailsScreen extends StatelessWidget {
                             ),
                             onDotClicked: (index) => PageController().animateToPage(
                               index,
-                              curve: Curves.easeIn,
-                              duration: const Duration(milliseconds: 1000),
+                              curve: Curves.linear,
+                              duration: const Duration(milliseconds: 2000),
                             ),
                           ),
                         )
                       ],
-                    );
-                  },
-                ),
+                    )
+                 
               ),
               
               /// ROW TO DISPLAY ITEM DETAILS AND ICONS.
@@ -141,15 +142,15 @@ class DetailsScreen extends StatelessWidget {
                       Text(
                         "Premium",
                         style: GoogleFonts.imprima(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 35,
+                            fontWeight: FontWeight.w600,
                             color: const Color.fromRGBO(13, 13, 14, 1)),
                       ),
                       Text(
                         "${selectedItem?.name}",
                         style: GoogleFonts.imprima(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 35,
+                            fontWeight: FontWeight.w600,
                             color: const Color.fromRGBO(13, 13, 14, 1)),
                       ),
                     ],
@@ -168,7 +169,7 @@ class DetailsScreen extends StatelessWidget {
                 "Size",
                 style: GoogleFonts.imprima(
                     fontSize: 24,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     color: const Color.fromRGBO(13, 13, 14, 1)),
               ),
               
@@ -177,6 +178,7 @@ class DetailsScreen extends StatelessWidget {
                 height: 30,
                 child: Consumer<DetailsScreenProvider>(
                   builder: (context, provider, child) {
+                    List sizeList= provider.sizeList;
                     return ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: sizeList.length,
@@ -221,7 +223,7 @@ class DetailsScreen extends StatelessWidget {
                     "\$${selectedItem?.price}",
                     style: GoogleFonts.imprima(
                         fontSize: 36,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                         color: const Color.fromRGBO(13, 13, 14, 1)),
                   ),
                   const Spacer(),

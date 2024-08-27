@@ -40,8 +40,8 @@ class _FirstScreenState extends State<FirstScreen> {
                 Text(
                   "Find The \nBest Collections",
                   style: GoogleFonts.imprima(
-                    fontSize: 42,
-                    fontWeight: FontWeight.w900,
+                    fontSize: 44,
+                    fontWeight: FontWeight.bold,
                     color: const Color.fromRGBO(13, 13, 14, 1),
                   ),
                 ),

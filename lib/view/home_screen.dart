@@ -1,4 +1,3 @@
-import 'package:fashion_app/controller/category_list.dart';
 import 'package:fashion_app/view/details_screen.dart';
 import 'package:fashion_app/view/widget/bottom_navigation.dart';
 import 'package:flutter/material.dart';
@@ -86,7 +85,7 @@ class _HomeScreenState extends State {
               height: 32,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: categoryList.length,
+                  itemCount: itemDataObj.categoryList.length,
 
                   ///NAMES IN THE CATEGORY LIST
                   itemBuilder: (context, index) {
@@ -105,11 +104,11 @@ class _HomeScreenState extends State {
                             borderRadius: BorderRadius.circular(32),
                             color: chhoseColor(index)),
                         child: Text(
-                          categoryList[index],
+                          itemDataObj.categoryList[index],
                           textAlign: TextAlign.center,
                           style: GoogleFonts.imprima(
                               fontSize: 16,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w600,
                               color: (selectedIndex == index)
                                   ? const Color.fromRGBO(255, 255, 255, 1)
                                   : const Color.fromRGBO(13, 13, 14, 1)),
@@ -163,19 +162,35 @@ class _HomeScreenState extends State {
                               Positioned(
                                   bottom: 0,
                                   right: 10,
-                                  child: Transform.translate(
-                                    offset: const Offset(0, 10),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
+                                 //top: 100,
+                                  
+                                   
+                                    child: Transform.translate(
+                                      offset: const Offset(0, 15),
                                       child: Container(
-                                        height: 36,
-                                        width: 36,
-                                        color:
-                                            const Color.fromRGBO(13, 13, 13, 1),
-                                        child: const Icon(
-                                          Icons.shopping_bag_rounded,
+                                   
+                                    padding: const EdgeInsets.all(5),
+                                    height: 40,
+                                    width: 40,
+                                    decoration: const BoxDecoration(
+                                       color: Color.fromRGBO(255,255,255,1) ,
+                                       shape: BoxShape.circle
+                                    ),
+                                  
+                                     child:   ClipRRect(
+                                        borderRadius: BorderRadius.circular(100),
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          height: 36,
+                                          width: 36,
                                           color:
-                                              Color.fromRGBO(255, 255, 255, 1),
+                                              const Color.fromRGBO(13, 13, 13, 1),
+                                          child: const Icon(
+                                            size: 15,
+                                            Icons.shopping_bag_rounded,
+                                            color:
+                                                Color.fromRGBO(255, 255, 255, 1),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -188,8 +203,8 @@ class _HomeScreenState extends State {
                         Text(
                           "\$${itemDataObj.itemsList[index].price}",
                           style: GoogleFonts.imprima(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
+                              fontSize: 19,
+                              fontWeight: FontWeight.w600,
                               color: const Color.fromRGBO(13, 13, 14, 1)),
                           //overflow: TextOverflow.visible,
                         ),
@@ -198,8 +213,8 @@ class _HomeScreenState extends State {
                         Text(
                           itemDataObj.itemsList[index].name!,
                           style: GoogleFonts.imprima(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
                               color: const Color.fromRGBO(121, 119, 128, 1)),
                         )
                       ],

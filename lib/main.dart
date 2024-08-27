@@ -12,13 +12,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     ///PROVIDER
-    return ChangeNotifierProvider(create:(context)=>ItemsData(),
-    child:const  MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: FirstScreen(),
-    ),
-     );
+    return ChangeNotifierProvider(
+      create: (context) => ItemsData(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: FirstScreen(),
+      ),
+    );
   }
 }

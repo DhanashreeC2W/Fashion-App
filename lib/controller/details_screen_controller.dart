@@ -28,4 +28,14 @@ class DetailsScreenProvider extends ChangeNotifier {
       return const Color.fromRGBO(255, 255, 255, 1);
     }
   }
+  
+
+///LIST OF SIZESON DETAILS SCREEN
+List<String> sizeList = [
+  "S",
+  "M",
+  "L",
+  "XL",
+  "XXL",
+];
 }
