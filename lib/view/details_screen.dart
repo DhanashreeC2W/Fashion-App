@@ -1,21 +1,30 @@
+import 'package:fashion_app/controller/details_screen_controller.dart';
+import 'package:fashion_app/controller/items_data.dart';
 import 'package:fashion_app/controller/size_list.dart';
-import 'package:fashion_app/model/item_model.dart';
 import 'package:fashion_app/view/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+/// THIS IS DETAILS SCREEN THAT DISPLAYS INFORMATION ABOUT A SELECTED ITEM.
 class DetailsScreen extends StatelessWidget {
-  const DetailsScreen({super.key, required this.itemData});
-  final ItemsModel itemData;
+ 
+  const DetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    /// FETCHING THE SELECTED ITEM FROM THE PROVIDER.
+    final ItemsData itemsData = Provider.of<ItemsData>(context);
+    final selectedItem = itemsData.selectedItem;
+
+    /// USING ChangeNotifierProvider TO HANDLE BOOKMARK AND SIZE SELECTION.
     return ChangeNotifierProvider(
       create: (_) => DetailsScreenProvider(),
       child: Scaffold(
         backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+        
+        /// APP BAR WITH BACK BUTTON AND BOOKMARK ACTION.
         appBar: AppBar(
           backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
           title: Text(
@@ -37,6 +46,7 @@ class DetailsScreen extends StatelessWidget {
             ),
           ),
           actions: [
+            /// BOOKMARK BUTTON THAT TOGGLES BETWEEN SAVED AND UNSAVED STATES.
             Consumer<DetailsScreenProvider>(
               builder: (context, provider, child) {
                 return GestureDetector(
@@ -64,6 +74,8 @@ class DetailsScreen extends StatelessWidget {
             )
           ],
         ),
+        
+        /// MAIN CONTENT BODY OF THE DETAILS SCREEN.
         body: Padding(
           padding: const EdgeInsets.only(
             left: 30,
@@ -73,6 +85,8 @@ class DetailsScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              
+              /// PAGEVIEW TO DISPLAY IMAGES OF THE SELECTED ITEM.
               SizedBox(
                 height: 450,
                 child: PageView.builder(
@@ -84,12 +98,14 @@ class DetailsScreen extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(40),
                           child: Image.asset(
-                            itemData.img!,
+                            "${selectedItem?.img}",
                             width: MediaQuery.sizeOf(context).width,
                             height: 450,
                             fit: BoxFit.cover,
                           ),
                         ),
+                        
+                        /// INDICATOR FOR THE PAGEVIEW.
                         Positioned(
                           bottom: 9,
                           left: 150,
@@ -114,6 +130,8 @@ class DetailsScreen extends StatelessWidget {
                   },
                 ),
               ),
+              
+              /// ROW TO DISPLAY ITEM DETAILS AND ICONS.
               Row(
                 children: [
                   Column(
@@ -128,7 +146,7 @@ class DetailsScreen extends StatelessWidget {
                             color: const Color.fromRGBO(13, 13, 14, 1)),
                       ),
                       Text(
-                        itemData.name!,
+                        "${selectedItem?.name}",
                         style: GoogleFonts.imprima(
                             fontSize: 30,
                             fontWeight: FontWeight.w500,
@@ -144,6 +162,8 @@ class DetailsScreen extends StatelessWidget {
                   Image.asset("assets/images/ec1.png"),
                 ],
               ),
+              
+              /// LABEL FOR SIZE OPTIONS.
               Text(
                 "Size",
                 style: GoogleFonts.imprima(
@@ -151,6 +171,8 @@ class DetailsScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                     color: const Color.fromRGBO(13, 13, 14, 1)),
               ),
+              
+              /// LISTVIEW FOR SIZE SELECTION OPTIONS.
               SizedBox(
                 height: 30,
                 child: Consumer<DetailsScreenProvider>(
@@ -191,10 +213,12 @@ class DetailsScreen extends StatelessWidget {
                   },
                 ),
               ),
+              
+              /// ROW TO DISPLAY PRICE AND ADD TO CART BUTTON.
               Row(
                 children: [
                   Text(
-                    "\$${itemData.price}",
+                    "\$${selectedItem?.price}",
                     style: GoogleFonts.imprima(
                         fontSize: 36,
                         fontWeight: FontWeight.w500,
@@ -230,25 +254,4 @@ class DetailsScreen extends StatelessWidget {
   }
 }
 
-class DetailsScreenProvider extends ChangeNotifier {
-  bool isBookMarked = false;
-  int selectedSize = 2;
 
-  void toggleBookmark() {
-    isBookMarked = !isBookMarked;
-    notifyListeners();
-  }
-
-  void selectSize(int index) {
-    selectedSize = index;
-    notifyListeners();
-  }
-
-  Color? showColor(int index) {
-    if (selectedSize == index) {
-      return const Color.fromRGBO(13, 13, 14, 1);
-    } else {
-      return const Color.fromRGBO(255, 255, 255, 1);
-    }
-  }
-}

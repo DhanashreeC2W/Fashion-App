@@ -6,7 +6,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fashion_app/controller/items_data.dart';
 import 'package:provider/provider.dart';
-
+///THIS HOME SCREEN 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -16,14 +16,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State {
   int selectedIndex = 0;
- Color? chhoseColor(int index){
-    if(selectedIndex==index){
-      return const Color.fromRGBO(255,122,0,1);
-      
-    }else{
-      return const Color.fromRGBO(255,255,255,1);
+  Color? chhoseColor(int index) {
+    if (selectedIndex == index) {
+      return const Color.fromRGBO(255, 122, 0, 1);
+    } else {
+      return const Color.fromRGBO(255, 255, 255, 1);
     }
- }
+  }
+
   @override
   Widget build(BuildContext context) {
     ///OBTAIN ITEMS DATA OBJECT FROM PROVIDER
@@ -32,6 +32,7 @@ class _HomeScreenState extends State {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(2555, 255, 255, 1),
       bottomNavigationBar: const MyBottomNavigation(),
+
       ///PADDING TO THE ENTIRE BODY
       body: Padding(
         padding: const EdgeInsets.only(left: 30, right: 30, top: 50),
@@ -90,10 +91,10 @@ class _HomeScreenState extends State {
                   ///NAMES IN THE CATEGORY LIST
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap:(){
-                          setState(() {
-                            selectedIndex=index;
-                          });
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = index;
+                        });
                       },
                       child: Container(
                         padding: const EdgeInsets.only(top: 5),
@@ -107,10 +108,11 @@ class _HomeScreenState extends State {
                           categoryList[index],
                           textAlign: TextAlign.center,
                           style: GoogleFonts.imprima(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                            color: (selectedIndex==index)? const Color.fromRGBO(255, 255, 255, 1):const Color.fromRGBO(13,13,14,1)
-                          ),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: (selectedIndex == index)
+                                  ? const Color.fromRGBO(255, 255, 255, 1)
+                                  : const Color.fromRGBO(13, 13, 14, 1)),
                         ),
                       ),
                     );
@@ -120,18 +122,13 @@ class _HomeScreenState extends State {
             ///GRID VIEW OF ITEMS
             Expanded(
               child: GridView.custom(
-                // shrinkWrap: true,
                 gridDelegate: SliverWovenGridDelegate.count(
                   crossAxisCount: 2,
-                  //mainAxisSpacing: 10,
                   crossAxisSpacing: 20,
-                  //tileBottomSpace: 10,
                   pattern: [
-                    // const WovenGridTile(1),
                     const WovenGridTile(
                       6 / 10,
                       crossAxisRatio: 0.9,
-                      //alignment: AlignmentDirectional.centerEnd,
                     ),
                   ],
                 ),
@@ -146,10 +143,10 @@ class _HomeScreenState extends State {
                         ///GESTUREDETECTOR FOR NAVIGATING TO DETAILS SCREEN
                         GestureDetector(
                           onTap: () {
+                            itemDataObj
+                                .selectItem(itemDataObj.itemsList[index]);
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => DetailsScreen(
-                                      itemData: itemDataObj.itemsList[index],
-                                    )));
+                                builder: (context) => const DetailsScreen()));
                           },
 
                           ///IMAGES OF ITEM IN ITEM LIST
@@ -159,18 +156,15 @@ class _HomeScreenState extends State {
                                 // height: 122,
                                 //width: 900,
                                 child: Image.asset(
-                                  itemDataObj.itemsList[index].img!,
-                                  // height: 190,
-                                  width: 700,
-                                  fit: BoxFit.cover
-                                  //cacheHeight: 190,
-                                ),
+                                    itemDataObj.itemsList[index].img!,
+                                    width: 700,
+                                    fit: BoxFit.cover),
                               ),
                               Positioned(
                                   bottom: 0,
                                   right: 10,
                                   child: Transform.translate(
-                                    offset:const Offset(0, 10),
+                                    offset: const Offset(0, 10),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(100),
                                       child: Container(
@@ -178,7 +172,11 @@ class _HomeScreenState extends State {
                                         width: 36,
                                         color:
                                             const Color.fromRGBO(13, 13, 13, 1),
-                                            child:const Icon(Icons.shopping_bag_rounded,color: Color.fromRGBO(255,255,255,1),),
+                                        child: const Icon(
+                                          Icons.shopping_bag_rounded,
+                                          color:
+                                              Color.fromRGBO(255, 255, 255, 1),
+                                        ),
                                       ),
                                     ),
                                   ))

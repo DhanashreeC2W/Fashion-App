@@ -23,4 +23,14 @@ class ItemsData extends ChangeNotifier {
      ItemsModel(
         img: "assets/images/img4.png", price: 257.85, name: "Leather Coart")
   ];
+  ///CURRENTLY SLECTED PLANT
+  ItemsModel? _selectedItem;
+  
+  ///GETTER METHOD FOR SELECTED ITEM
+  ItemsModel?get selectedItem => _selectedItem;
+
+  void selectItem (ItemsModel item){
+    _selectedItem = item;
+    notifyListeners();
+  }
 }
