@@ -3,9 +3,10 @@ import 'package:fashion_app/view/widget/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:fashion_app/controller/items_data.dart';
+import 'package:fashion_app/controller/home_screen_controller.dart';
 import 'package:provider/provider.dart';
-///THIS HOME SCREEN 
+
+///THIS HOME SCREEN
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -14,19 +15,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State {
-  int selectedIndex = 0;
-  Color? chhoseColor(int index) {
-    if (selectedIndex == index) {
-      return const Color.fromRGBO(255, 122, 0, 1);
-    } else {
-      return const Color.fromRGBO(255, 255, 255, 1);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     ///OBTAIN ITEMS DATA OBJECT FROM PROVIDER
     final ItemsData itemDataObj = Provider.of(context);
+    //  final selectedCategory = itemDataObj.selectedCategory;
 
     return Scaffold(
       backgroundColor: const Color.fromRGBO(2555, 255, 255, 1),
@@ -77,7 +70,7 @@ class _HomeScreenState extends State {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
 
             ///HORIZONTAL LIST OF CATEGORY ITEMS
@@ -91,9 +84,7 @@ class _HomeScreenState extends State {
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
+                        itemDataObj.selectedCategories(index);
                       },
                       child: Container(
                         padding: const EdgeInsets.only(top: 5),
@@ -101,15 +92,16 @@ class _HomeScreenState extends State {
                         width: 90,
                         height: 32,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(32),
-                            color: chhoseColor(index)),
+                          borderRadius: BorderRadius.circular(32),
+                          color: itemDataObj.showCategoryColor(index),
+                        ),
                         child: Text(
                           itemDataObj.categoryList[index],
                           textAlign: TextAlign.center,
                           style: GoogleFonts.imprima(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
-                              color: (selectedIndex == index)
+                              color: (itemDataObj.selectedCategory == index)
                                   ? const Color.fromRGBO(255, 255, 255, 1)
                                   : const Color.fromRGBO(13, 13, 14, 1)),
                         ),
@@ -127,98 +119,86 @@ class _HomeScreenState extends State {
                   pattern: [
                     const WovenGridTile(
                       6 / 10,
-                      crossAxisRatio: 0.9,
+                      crossAxisRatio: 1,
                     ),
                   ],
                 ),
                 childrenDelegate: SliverChildBuilderDelegate(
                     childCount: itemDataObj.itemsList.length, (context, index) {
-                  return SizedBox(
-                    height: 23,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ///GESTUREDETECTOR FOR NAVIGATING TO DETAILS SCREEN
-                        GestureDetector(
-                          onTap: () {
-                            itemDataObj
-                                .selectItem(itemDataObj.itemsList[index]);
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const DetailsScreen()));
-                          },
-
-                          ///IMAGES OF ITEM IN ITEM LIST
-                          child: Stack(
-                            children: [
-                              SizedBox(
-                                // height: 122,
-                                //width: 900,
-                                child: Image.asset(
-                                    itemDataObj.itemsList[index].img!,
-                                    width: 700,
-                                    fit: BoxFit.cover),
-                              ),
-                              Positioned(
-                                  bottom: 0,
-                                  right: 10,
-                                 //top: 100,
-                                  
-                                   
-                                    child: Transform.translate(
-                                      offset: const Offset(0, 15),
-                                      child: Container(
-                                   
-                                    padding: const EdgeInsets.all(5),
-                                    height: 40,
-                                    width: 40,
-                                    decoration: const BoxDecoration(
-                                       color: Color.fromRGBO(255,255,255,1) ,
-                                       shape: BoxShape.circle
-                                    ),
-                                  
-                                     child:   ClipRRect(
-                                        borderRadius: BorderRadius.circular(100),
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          height: 36,
-                                          width: 36,
-                                          color:
-                                              const Color.fromRGBO(13, 13, 13, 1),
-                                          child: const Icon(
-                                            size: 15,
-                                            Icons.shopping_bag_rounded,
-                                            color:
-                                                Color.fromRGBO(255, 255, 255, 1),
-                                          ),
-                                        ),
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ///GESTUREDETECTOR FOR NAVIGATING TO DETAILS SCREEN
+                      GestureDetector(
+                        onTap: () async {
+                          itemDataObj
+                              .selectItem(itemDataObj.itemsList[index]);
+                          await Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const DetailsScreen()));
+                        },
+                  
+                        ///IMAGES OF ITEM IN ITEM LIST
+                        child: Stack(
+                          children: [
+                            Image.asset(itemDataObj.itemsList[index].img!,
+                                width: 700, fit: BoxFit.cover),
+                            Positioned(
+                              bottom: 0,
+                              right: 10,
+                              //top: 100,
+                  
+                              child: Transform.translate(
+                                offset: const Offset(0, 15),
+                                child: Container(
+                                  padding: const EdgeInsets.all(5),
+                                  height: 40,
+                                  width: 40,
+                                  decoration: const BoxDecoration(
+                                      color: Color.fromRGBO(255, 255, 255, 1),
+                                      shape: BoxShape.circle),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 36,
+                                      width: 36,
+                                      color:
+                                          const Color.fromRGBO(13, 13, 13, 1),
+                                      child: const Icon(
+                                        size: 15,
+                                        Icons.shopping_bag_rounded,
+                                        color:
+                                            Color.fromRGBO(255, 255, 255, 1),
                                       ),
                                     ),
-                                  ))
-                            ],
-                          ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-
-                        ///PRICE OF ITEM IN ITEM LIST
-                        Text(
-                          "\$${itemDataObj.itemsList[index].price}",
-                          style: GoogleFonts.imprima(
-                              fontSize: 19,
-                              fontWeight: FontWeight.w600,
-                              color: const Color.fromRGBO(13, 13, 14, 1)),
-                          //overflow: TextOverflow.visible,
-                        ),
-
-                        ///NAME OF ITEM IN ITEM LIST
-                        Text(
-                          itemDataObj.itemsList[index].name!,
-                          style: GoogleFonts.imprima(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: const Color.fromRGBO(121, 119, 128, 1)),
-                        )
-                      ],
-                    ),
+                      ),
+                  
+                      ///PRICE OF ITEM IN ITEM LIST
+                      Text(
+                        "\$${itemDataObj.itemsList[index].price}",
+                        style: GoogleFonts.imprima(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600,
+                            color: const Color.fromRGBO(13, 13, 14, 1)),
+                        //overflow: TextOverflow.visible,
+                      ),
+                  
+                      ///NAME OF ITEM IN ITEM LIST
+                      Text(
+                        itemDataObj.itemsList[index].name!,
+                        style: GoogleFonts.imprima(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: const Color.fromRGBO(121, 119, 128, 1)),
+                      ),
+                    ],
                   );
                 }),
               ),

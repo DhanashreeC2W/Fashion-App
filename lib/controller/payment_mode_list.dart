@@ -1,5 +1,0 @@
-///PAYMENT MODE IMAGES ON CHECKOUT SCREEN
-library;
-
-
-

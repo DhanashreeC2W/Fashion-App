@@ -19,8 +19,7 @@ class _FirstScreenState extends State<FirstScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            
-            height:550,
+            height: 550,
             width: MediaQuery.of(context).size.width,
             child: Image.asset(
               "assets/images/first.png",

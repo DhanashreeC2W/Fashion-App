@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 /// MODEL CLASS FOR ITEMS, CONTAINING IMAGE, PRICE, AND NAME 
 class ItemsModel  {
@@ -12,10 +11,13 @@ class ItemsModel  {
   /// NAME OF THE ITEM
   final String? name;
 
+ 
+
   /// CONSTRUCTOR
    ItemsModel({  
     required this.img,  
     required this.price, 
-    required this.name,  
+    required this.name, 
+    
   });
 }
