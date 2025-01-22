@@ -55,8 +55,6 @@ class ItemsData extends ChangeNotifier {
 
   void selectItem(ItemsModel item) {
     _selectedItem = item;
-    print(
-        "-------------------------------Selected Item: ${_selectedItem?.name}-----------------------------------------------------");
     notifyListeners();
   }
 

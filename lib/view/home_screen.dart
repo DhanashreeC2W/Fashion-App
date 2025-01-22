@@ -1,12 +1,11 @@
 import 'package:fashion_app/view/details_screen.dart';
-import 'package:fashion_app/view/widget/bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fashion_app/controller/home_screen_controller.dart';
 import 'package:provider/provider.dart';
 
-///THIS HOME SCREEN
+///HOME SCREEN
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -18,18 +17,15 @@ class _HomeScreenState extends State {
   @override
   Widget build(BuildContext context) {
     ///OBTAIN ITEMS DATA OBJECT FROM PROVIDER
-    final ItemsData itemDataObj = Provider.of(context);
-    //  final selectedCategory = itemDataObj.selectedCategory;
+    final ItemsData itemDataObj = Provider.of<ItemsData>(context);
 
     return Scaffold(
       backgroundColor: const Color.fromRGBO(2555, 255, 255, 1),
-      bottomNavigationBar: const MyBottomNavigation(),
 
       ///PADDING TO THE ENTIRE BODY
       body: Padding(
         padding: const EdgeInsets.only(left: 30, right: 30, top: 50),
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ///ROW CONTAINING TWO ICONS
@@ -73,7 +69,7 @@ class _HomeScreenState extends State {
               height: 20,
             ),
 
-            ///HORIZONTAL LIST OF CATEGORY ITEMS
+            // /HORIZONTAL LIST OF CATEGORY ITEMS
             SizedBox(
               height: 32,
               child: ListView.builder(
@@ -109,8 +105,9 @@ class _HomeScreenState extends State {
                     );
                   }),
             ),
+            const SizedBox(height: 20),
 
-            ///GRID VIEW OF ITEMS
+            // /GRID VIEW OF ITEMS
             Expanded(
               child: GridView.custom(
                 gridDelegate: SliverWovenGridDelegate.count(
@@ -132,12 +129,11 @@ class _HomeScreenState extends State {
                       ///GESTUREDETECTOR FOR NAVIGATING TO DETAILS SCREEN
                       GestureDetector(
                         onTap: () async {
-                          itemDataObj
-                              .selectItem(itemDataObj.itemsList[index]);
+                          itemDataObj.selectItem(itemDataObj.itemsList[index]);
                           await Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const DetailsScreen()));
                         },
-                  
+
                         ///IMAGES OF ITEM IN ITEM LIST
                         child: Stack(
                           children: [
@@ -147,7 +143,7 @@ class _HomeScreenState extends State {
                               bottom: 0,
                               right: 10,
                               //top: 100,
-                  
+
                               child: Transform.translate(
                                 offset: const Offset(0, 15),
                                 child: Container(
@@ -168,8 +164,7 @@ class _HomeScreenState extends State {
                                       child: const Icon(
                                         size: 15,
                                         Icons.shopping_bag_rounded,
-                                        color:
-                                            Color.fromRGBO(255, 255, 255, 1),
+                                        color: Color.fromRGBO(255, 255, 255, 1),
                                       ),
                                     ),
                                   ),
@@ -179,7 +174,7 @@ class _HomeScreenState extends State {
                           ],
                         ),
                       ),
-                  
+
                       ///PRICE OF ITEM IN ITEM LIST
                       Text(
                         "\$${itemDataObj.itemsList[index].price}",
@@ -189,7 +184,7 @@ class _HomeScreenState extends State {
                             color: const Color.fromRGBO(13, 13, 14, 1)),
                         //overflow: TextOverflow.visible,
                       ),
-                  
+
                       ///NAME OF ITEM IN ITEM LIST
                       Text(
                         itemDataObj.itemsList[index].name!,

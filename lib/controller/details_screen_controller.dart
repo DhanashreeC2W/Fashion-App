@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class DetailsScreenProvider extends ChangeNotifier {
   /// BOOLEAN TO TRACK IF THE ITEM IS BOOKMARKED.
   bool isBookMarked = false;
-  
+
   /// INTEGER TO TRACK THE SELECTED SIZE.
   int selectedSize = 2;
 
@@ -28,14 +28,13 @@ class DetailsScreenProvider extends ChangeNotifier {
       return const Color.fromRGBO(255, 255, 255, 1);
     }
   }
-  
 
-///LIST OF SIZESON DETAILS SCREEN
-List<String> sizeList = [
-  "S",
-  "M",
-  "L",
-  "XL",
-  "XXL",
-];
+  ///LIST OF SIZESON DETAILS SCREEN
+  List<String> sizeList = [
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL",
+  ];
 }

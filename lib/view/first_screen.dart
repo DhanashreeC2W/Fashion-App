@@ -1,4 +1,4 @@
-import 'package:fashion_app/view/home_screen.dart';
+import 'package:fashion_app/view/app_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -110,7 +110,7 @@ class _FirstScreenState extends State<FirstScreen> {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const HomeScreen()));
+                              builder: (context) => const AppBottomNavigation()));
                         },
                         style: const ButtonStyle(
                           backgroundColor: WidgetStatePropertyAll(

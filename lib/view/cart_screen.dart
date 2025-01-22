@@ -1,13 +1,13 @@
 import 'package:fashion_app/controller/cart_screen_controller.dart';
 import 'package:fashion_app/controller/home_screen_controller.dart';
 import 'package:fashion_app/view/checkout_screen.dart';
-import 'package:fashion_app/view/widget/payment_details.dart';
+import 'package:fashion_app/view/Widgets/payment_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-/// CART SCREEN WIDGET
+/// CART SCREEN 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
@@ -17,7 +17,7 @@ class CartScreen extends StatelessWidget {
     final ItemsData itemDataObj = Provider.of<ItemsData>(context);
 
     return Scaffold(
-      /// SET BACKGROUND COLOR FOR THE SCREEN
+     
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
     
       /// APPBAR
